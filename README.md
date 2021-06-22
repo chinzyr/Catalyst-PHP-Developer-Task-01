@@ -43,6 +43,8 @@ Full Run the Script : php user_upload.php -u rttt -p xxx -h ddd -n sss --file sa
 
 ### Assumption Notes
 
-** It is assumed that, if create_table or dry_run or help is passed into the Command line, the script will not execute fully and insert data into the database.
+** It is assumed that create_table or dry_run or help is passed into the Command line, the script will not execute fully and insert data into the database.
 
 ** It is assumed that the accepted file extension is only CSV. 
+
+** As there are many methods to rebuild the database table, I have choosen the option to repire the table as rebuilding.

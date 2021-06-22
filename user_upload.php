@@ -41,7 +41,7 @@ if(count($options)){
 
 		switch ($opt) {
 
-			// short values
+			// short options
 			case 'u':
 				$baseClass->set_Public_Variable('dbuser',$options['u']);
 				print $baseClass->get_Public_Variable('dbuser',$options['u']);
@@ -59,7 +59,7 @@ if(count($options)){
 			print $options['n'];
 			break;
 
-			// long values
+			// long options
 
 			case 'help':
 				$full_run = false;
@@ -67,7 +67,7 @@ if(count($options)){
 			break;
 
 			case 'create_table':
-			print 'create_table';
+				print $baseClass->manage_Users_Table();
 				$full_run = false;
 			break;
 
