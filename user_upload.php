@@ -62,8 +62,8 @@ if(count($options)){
 			// long values
 
 			case 'help':
-			print 'help';
 				$full_run = false;
+				print $baseClass->print_help_message();
 			break;
 
 			case 'create_table':

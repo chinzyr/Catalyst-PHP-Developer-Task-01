@@ -29,7 +29,7 @@ Create a PHP script that is executed form the command line which accepts a CSV f
 
 --help : This parameter is used access help Section for this script
 
-** if create_table or dry_run or help is passed into the Command line, the script will not execute fully and insert data into the database.
+** It is assumed that, if create_table or dry_run or help is passed into the Command line, the script will not execute fully and insert data into the database.
 
 
 ### Example CMD executions

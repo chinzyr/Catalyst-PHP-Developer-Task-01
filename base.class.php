@@ -44,5 +44,31 @@
 
 		}
 
+		// funciton returns on screen help when the --help parameter is passed.		 
+		public function print_help_message(){
+
+			$help_text = "Catalyst IT Australia - TASK 01 - SCRIPT HELP".PHP_EOL;
+
+			$help_text .= "-u : This parameter is used to set the MySQL username.".PHP_EOL;
+
+			$help_text .= "-p : This parameter is used to set the MySQL password.".PHP_EOL;
+
+			$help_text .= "-h : This parameter is used to set the MySQL host.".PHP_EOL;
+
+			$help_text .= "-n : This parameter is used to set the MySQL database.".PHP_EOL;
+
+			$help_text .= "--file : This parameter is used to pass the CSV file name which needs to be parsed.".PHP_EOL;
+
+			$help_text .= "--create_table : This parameter is used to create the users table in for the passed in database details.".PHP_EOL;
+
+			$help_text .= "--dry_run : This parameter is used to execute all functions other than updating the Database table. --file parameter is required to execute this function.".PHP_EOL;
+
+			$help_text .= "--help : This parameter is used access help Section for this script".PHP_EOL;
+
+		
+			return $help_text;
+
+		}
+
 	}
 ?>
