@@ -6,6 +6,9 @@
 * Question : Create a PHP script that is executed form the command line which accepts a CSV file as input and processes the CSV file user details into a created database table.
 **/
 
+// including new base class to file
+require_once('base.class.php');
+$baseClass = new base();
 
 // define and gather the command line options using getopt -- START
 
@@ -26,7 +29,46 @@ $longoptions  = array(
 // gathering options
 $options = getopt($shortoptions, $longoptions);
 
-var_dump($options);
+// looping through the options and switching the values according to the array keys
+foreach (array_keys($options) as $opt) switch ($opt) {
+
+	// short values
+	case 'u':
+		$baseClass->set_Global_Variable('dbuser',$options['u']);
+		$baseClass->get_Global_Variable('dbuser',$options['u']);
+	break;
+
+	case 'p':
+	print $options['p'];
+	break;
+
+	case 'h':
+	print $options['h'];
+	break;
+
+	case 'n':
+	print $options['n'];
+	break;
+
+	// long values
+
+	case 'help':
+	print 'help';
+	break;
+
+	case 'create_table':
+	print 'create_table';
+	break;
+
+	case 'dry_run':
+	print 'dry_run';
+	break;
+
+	case 'file':
+	print $options['file'];
+	break;
+
+}
 
 // define and gather the command line options using getopt -- END
 
