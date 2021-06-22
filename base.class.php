@@ -12,7 +12,7 @@
 
 		public $dbhost = 'localhost';
 		public $dbname = 'userdetails';
-		public $dbuser = 'rootx';
+		public $dbuser = 'root';
 		public $dbpass = '';
 		public $userfile = '';
 
@@ -41,7 +41,7 @@
 				return $dbconn = new mysqli($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
 
 			}catch(mysqli_sql_exception $e){
-				print 'Database connection failed for the provided host details. Please pass valid host details and try again.';
+				print 'Database connection failed for the provided host details. Please pass valid host details and try again.'.$e->getMessage();
 				exit();
 			}
 
@@ -67,6 +67,12 @@
 				case 'tblcreateeerror':
 					$error_msg = "There was an error creating the users table. Please try again.";
 				break;
+
+				case 'dryrunfailed':
+					$error_msg = "Dry_Run Functionality failed with the following error : ";
+				break;
+
+				
 
 				default:
 					$error_msg = "No error value passed. Please contact admin for support";
@@ -130,7 +136,7 @@
 		// function manages the creation/ rebuild(repairs) of the users table on the database.
 		public function manage_Users_Table(){
 
-			$returnMsg = "";
+			$returnArr = array();
 
 			// calling the Database Connection
 			$db = $this->DB_Con();
@@ -142,9 +148,9 @@
 				$sql_repire_table = "REPAIR TABLE users";
 			
 				if ($db->query($sql_repire_table) !== FALSE){
-					$returnMsg = "Users Table Successfully Repaired";
+					$returnArr = array(true,"Users Table Successfully Repaired");
 				}else{
-					$returnMsg = $this->send_Error_Message("tblrepaireerror");
+					$returnArr = array(false,$this->send_Error_Message("tblrepaireerror"));
 				}
 				
 			} else { // if table does not exist we create the table
@@ -152,16 +158,44 @@
 			  $sql_table_create = "CREATE TABLE `userdetails`.`users` ( `uid` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(70) NOT NULL , `surname` VARCHAR(70) NOT NULL , `email` VARCHAR(150) NOT NULL , `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`uid`), UNIQUE `unique-email-address` (`email`)) ENGINE = MyISAM;";
 
 			  if ($db->query($sql_table_create) !== FALSE){
-					$returnMsg = "Users Table Successfully Created";
+					$returnArr = array(true,"Users Table Successfully Created");
 				}else{
-					$returnMsg = $this->send_Error_Message("tblcreateeerror");
+					$returnArr = array(false,$this->send_Error_Message("tblcreateeerror"));
 				}
 
 			}
 
 			$db->close(); // closing database connection
-			return $returnMsg;
+			return $returnArr;
 
+		}
+
+
+		// function executes all functions but will not add records to the database.
+		public function dry_Run($filename){
+			
+			$returnVal = "";
+
+			// Check for the file validity
+			$file_validity = $this->file_Validity_Check($filename);
+
+			if($file_validity[0]==true){
+
+				// execute manage users table function
+				$manage_usertable = $this->manage_Users_Table();
+				if($manage_usertable[0]==true){
+					$returnVal = "Dry Run Successfully Completed";
+				}else{
+					$returnVal = $this->send_Error_Message("dryrunfailed").$manage_usertable[1];
+				}
+
+			}else{
+
+				$returnVal = $this->send_Error_Message("dryrunfailed").$file_validity[1];
+
+			}
+
+			return $returnVal;
 		}
 
 

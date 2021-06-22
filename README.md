@@ -36,9 +36,9 @@ Accessing Help : php user_upload.php --help
 
 Creating Table Help : php user_upload.php -u rttt -p xxx -h ddd -n sss --create_table
 
-Dry Run : php user_upload.php -u rttt -p xxx -h ddd -n sss --file sample.txt --dry_run
+Dry Run : php user_upload.php -u rttt -p xxx -h ddd -n sss --file sample.csv --dry_run
 
-Full Run the Script : php user_upload.php -u rttt -p xxx -h ddd -n sss --file sample.txt
+Full Run the Script : php user_upload.php -u rttt -p xxx -h ddd -n sss --file sample.csv
 
 
 ### Assumption Notes

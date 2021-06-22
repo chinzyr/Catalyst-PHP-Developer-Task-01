@@ -35,7 +35,7 @@ if(count($options)){
 	// This bool variable has been set to check whether the data should be processed, valudated and inserted into the database. If it's a dry_run or if any variables are missing this will automatically be set to false.
 
 	$full_run = true;
-
+	
 	// looping through the options and switching the values according to the array keys
 	foreach (array_keys($options) as $opt) {
 
@@ -44,19 +44,18 @@ if(count($options)){
 			// short options
 			case 'u':
 				$baseClass->set_Public_Variable('dbuser',$options['u']);
-				print $baseClass->get_Public_Variable('dbuser',$options['u']);
 			break;
 
 			case 'p':
-			print $options['p'];
+				$baseClass->set_Public_Variable('dbpass',$options['p']); 
 			break;
 
 			case 'h':
-			print $options['h'];
+				$baseClass->set_Public_Variable('dbhost',$options['h']);
 			break;
 
 			case 'n':
-			print $options['n'];
+				$baseClass->set_Public_Variable('dbname',$options['n']);
 			break;
 
 			// long options
@@ -67,19 +66,18 @@ if(count($options)){
 			break;
 
 			case 'create_table':
-				print $baseClass->manage_Users_Table();
 				$full_run = false;
+				$return_Data =  $baseClass->manage_Users_Table();
+				print $return_Data[1];				
 			break;
 
 			case 'dry_run':
-			print 'dry_run';
 				$full_run = false;
+				print $baseClass->dry_Run($options['file']);				
 			break;
 
-			case 'file':
-			 	$return_Data = $baseClass->file_Validity_Check($options['file']);
-			 	print $return_Data[1];
-			break;
+			
+			 	
 		}
 
 	}
