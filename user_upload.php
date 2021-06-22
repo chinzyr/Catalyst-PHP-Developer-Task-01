@@ -77,7 +77,8 @@ if(count($options)){
 			break;
 
 			case 'file':
-			print $options['file'];
+			 	$return_Data = $baseClass->file_Validity_Check($options['file']);
+			 	print $return_Data[1];
 			break;
 		}
 
