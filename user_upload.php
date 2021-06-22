@@ -31,50 +31,63 @@ $options = getopt($shortoptions, $longoptions);
 
 // Checking whether options were passed.
 if(count($options)){
+	
+	// This bool variable has been set to check whether the data should be processed, valudated and inserted into the database. If it's a dry_run or if any variables are missing this will automatically be set to false.
+
+	$full_run = true;
+
 	// looping through the options and switching the values according to the array keys
-	foreach (array_keys($options) as $opt) switch ($opt) {
+	foreach (array_keys($options) as $opt) {
 
-		// short values
-		case 'u':
-			$baseClass->set_Public_Variable('dbuser',$options['u']);
-			print $baseClass->get_Public_Variable('dbuser',$options['u']);
-		break;
+		switch ($opt) {
 
-		case 'p':
-		print $options['p'];
-		break;
+			// short values
+			case 'u':
+				$baseClass->set_Public_Variable('dbuser',$options['u']);
+				print $baseClass->get_Public_Variable('dbuser',$options['u']);
+			break;
 
-		case 'h':
-		print $options['h'];
-		break;
+			case 'p':
+			print $options['p'];
+			break;
 
-		case 'n':
-		print $options['n'];
-		break;
+			case 'h':
+			print $options['h'];
+			break;
 
-		// long values
+			case 'n':
+			print $options['n'];
+			break;
 
-		case 'help':
-		print 'help';
-		break;
+			// long values
 
-		case 'create_table':
-		print 'create_table';
-		break;
+			case 'help':
+			print 'help';
+				$full_run = false;
+			break;
 
-		case 'dry_run':
-		print 'dry_run';
-		break;
+			case 'create_table':
+			print 'create_table';
+				$full_run = false;
+			break;
 
-		case 'file':
-		print $options['file'];
-		break;
+			case 'dry_run':
+			print 'dry_run';
+				$full_run = false;
+			break;
 
-		default:
-			
-		break;
+			case 'file':
+			print $options['file'];
+			break;
+		}
 
 	}
+
+	if($full_run){
+		print "FULL RUN YES";
+	}
+
+
 }else{
 	// Send error message is no parameters were passed or incorrect ones are passed
 	print $baseClass->send_Error_Message('noparam');
