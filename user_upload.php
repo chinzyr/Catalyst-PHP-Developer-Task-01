@@ -29,45 +29,55 @@ $longoptions  = array(
 // gathering options
 $options = getopt($shortoptions, $longoptions);
 
-// looping through the options and switching the values according to the array keys
-foreach (array_keys($options) as $opt) switch ($opt) {
+// Checking whether options were passed.
+if(count($options)){
+	// looping through the options and switching the values according to the array keys
+	foreach (array_keys($options) as $opt) switch ($opt) {
 
-	// short values
-	case 'u':
-		$baseClass->set_Global_Variable('dbuser',$options['u']);
-		$baseClass->get_Global_Variable('dbuser',$options['u']);
-	break;
+		// short values
+		case 'u':
+			$baseClass->set_Public_Variable('dbuser',$options['u']);
+			print $baseClass->get_Public_Variable('dbuser',$options['u']);
+		break;
 
-	case 'p':
-	print $options['p'];
-	break;
+		case 'p':
+		print $options['p'];
+		break;
 
-	case 'h':
-	print $options['h'];
-	break;
+		case 'h':
+		print $options['h'];
+		break;
 
-	case 'n':
-	print $options['n'];
-	break;
+		case 'n':
+		print $options['n'];
+		break;
 
-	// long values
+		// long values
 
-	case 'help':
-	print 'help';
-	break;
+		case 'help':
+		print 'help';
+		break;
 
-	case 'create_table':
-	print 'create_table';
-	break;
+		case 'create_table':
+		print 'create_table';
+		break;
 
-	case 'dry_run':
-	print 'dry_run';
-	break;
+		case 'dry_run':
+		print 'dry_run';
+		break;
 
-	case 'file':
-	print $options['file'];
-	break;
+		case 'file':
+		print $options['file'];
+		break;
 
+		default:
+			
+		break;
+
+	}
+}else{
+	// Send error message is no parameters were passed or incorrect ones are passed
+	print $baseClass->send_Error_Message('noparam');
 }
 
 // define and gather the command line options using getopt -- END

@@ -15,12 +15,33 @@
 		public $dbuser = 'root';
 		public $dbpass = '';
 
-		public function get_Global_Variable($var){
-			print $this->$var;
+		// funciton to get a current value of a public variable
+		public function get_Public_Variable($var){
+			return $this->$var;
 		}
 
-		public function set_Global_Variable($var,$val){
+		// funciton to set a value to a public variable
+		public function set_Public_Variable($var,$val){
 			$this->$var = $val;
+		}
+
+
+		// funciton to get error messages according to the passed error_value
+		public function send_Error_Message($error_value){
+
+			switch($error_value){
+				case 'noparam':
+					$error_msg = "The parameters passed doesn't seem to exist. Please pass a proper parameter or use --help to find out more about parameters.";
+				break;
+
+				default:
+					$error_msg = "No error value passed. Please contact admin for support";
+				break;
+
+			}
+
+			return $error_msg;
+
 		}
 
 	}
